@@ -15,7 +15,7 @@ export default async function HandComponent({
   display = "default",
 }: {
   cardNames: string[];
-  display?: "default" | "row";
+  display?: "default" | "row" | "small-row";
 }) {
   const cards = await Promise.all(
     cardNames.map((cardName) =>
@@ -31,6 +31,7 @@ export default async function HandComponent({
         "w-screen sm:max-w-[640px] md:max-w-[768px] lg:max-w-[900px] flex-col sm:flex-row items-center justify-center sm:flex-wrap space-y-[-225px] sm:space-y-0 sm:gap-4 lg:gap-6":
           display === "default",
         "space-x-[-100px]": display === "row",
+        "space-x-[-48px]": display === "small-row",
       })}
     >
       {cards.map(({ name, imageUrl }, index) => (
@@ -39,8 +40,13 @@ export default async function HandComponent({
           alt={name}
           src={imageUrl}
           className={clsx(
-            "w-48 sm:w-32 md:w-40 lg:w-48 aspect-[745/1040] rounded-[10px] shadow-lg shadow-black/40",
-            display === "default" && CARD_TRANSFORMS[index]
+            "aspect-[745/1040] shadow-lg shadow-black/40",
+            display === "default" && CARD_TRANSFORMS[index],
+            {
+              "w-48 sm:w-32 md:w-40 lg:w-48 rounded-[10px]":
+                display !== "small-row",
+              "w-20 rounded-[5px]": display === "small-row",
+            }
           )}
         />
       ))}
