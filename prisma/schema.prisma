@@ -11,8 +11,17 @@ datasource db {
 }
 
 model Hand {
-  id        String @default(cuid()) @id
+  id        String     @id @default(cuid())
   cards     String[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  decisions Decision[]
+}
+
+model Decision {
+  id     String  @id @default(cuid())
+  handId String
+  hand   Hand    @relation(fields: [handId], references: [id], onDelete: Cascade)
+  keep   Boolean
+  // TODO Decision will have an associated user once I add auth
 }
