@@ -14,6 +14,8 @@ export default async function Home() {
   const daysSinceStart = Math.floor(
     millisecondsSinceStart / (1000 * 60 * 60 * 24)
   );
+  if (!allHands.length) return <div>missing init</div>;
+
   const handOfTheDayId = allHands[daysSinceStart % allHands.length].id;
   const handOfTheDay = await prisma.hand.findUniqueOrThrow({
     where: { id: handOfTheDayId },
