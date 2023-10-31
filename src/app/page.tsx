@@ -4,9 +4,15 @@ import WithCardImageBackground from "@/components/WithCardImageBackground";
 import prisma from "@/lib/prisma";
 import Link from "next/link";
 
+const startDay = new Date("2023-10-31");
+
 export default async function Home() {
   const allHands = await prisma.hand.findMany();
-  const handOfTheDayId = allHands[0].id;
+  const millisecondsSinceStart = (new Date() as any) - (startDay as any);
+  const daysSinceStart = Math.floor(
+    millisecondsSinceStart / (1000 * 60 * 60 * 24)
+  );
+  const handOfTheDayId = allHands[daysSinceStart % allHands.length].id;
   const handOfTheDay = await prisma.hand.findUniqueOrThrow({
     where: { id: handOfTheDayId },
   });
