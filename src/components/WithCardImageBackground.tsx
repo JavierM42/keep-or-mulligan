@@ -18,9 +18,7 @@ export default async function WithCardImageBackground({
       className="w-screen h-screen bg-center bg-cover overflow-auto"
       style={{ backgroundImage: `url(${src})` }}
     >
-      <div className="row-start-1 col-start-1 pt-12 w-full h-full bg-gray-800/60 z-10">
-        {children}
-      </div>
+      <div className="min-h-screen pt-12 bg-gray-800/60 z-10">{children}</div>
     </main>
   );
 }

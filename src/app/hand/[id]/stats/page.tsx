@@ -1,4 +1,4 @@
-import Hand from "@/components/Hand";
+import Hand from "@/components/HandComponent";
 import WithCardImageBackground from "@/components/WithCardImageBackground";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
@@ -36,15 +36,15 @@ export default async function HandStatsPage({
     <WithCardImageBackground cardName={hand.cards[0]}>
       <div className="flex flex-col items-center justify-center gap-12 py-24 w-full h-full">
         <Hand cardNames={hand.cards} />
-        <div className="w-1/2 h-10 rounded-2xl shadow-lg shadow-black/20 flex overflow-clip">
+        <div className="w-1/2 h-12 rounded-2xl shadow-lg shadow-black/20 flex overflow-clip backdrop-blur">
           <div
-            className="bg-white text-black flex items-center p-2"
+            className="bg-white/50 text-black flex items-center px-6 font-medium"
             style={{ width: `${keepPercentage}%` }}
           >
             {keepPercentage}% kept
           </div>
           <div
-            className="bg-black text-white flex items-center justify-end p-2"
+            className="bg-black/40 text-white flex items-center justify-end px-6 font-medium"
             style={{ width: `${mulliganPercentage}%` }}
           >
             {mulliganPercentage}% mulliganed
