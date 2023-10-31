@@ -1,5 +1,7 @@
+import clsx from "clsx";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,7 +19,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={clsx(inter.className, "bg-gray-900 text-gray-100")}>
+        <header>
+          <nav className="fixed h-12 w-full flex items-center justify-center shadow-lg">
+            <Link href="/">
+              <h1 className="flex items-center gap-1 uppercase font-medium">
+                Keep <span className="text-xs">or</span> Mulligan
+              </h1>
+            </Link>
+          </nav>
+        </header>
+        {children}
+      </body>
     </html>
   );
 }

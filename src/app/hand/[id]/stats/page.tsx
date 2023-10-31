@@ -1,4 +1,5 @@
 import Hand from "@/components/Hand";
+import WithCardImageBackground from "@/components/WithCardImageBackground";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
@@ -32,31 +33,33 @@ export default async function HandStatsPage({
   const majorityMulligan = mulliganPercentage > keepPercentage;
 
   return (
-    <div className="flex flex-col items-center justify-center w-screen h-screen gap-12 p-4">
-      <Hand cardNames={hand.cards} />
-      <div className="w-1/2 h-10 rounded-2xl shadow-lg shadow-black/20 flex overflow-clip">
-        <div
-          className="bg-white text-black flex items-center p-2"
-          style={{ width: `${keepPercentage}%` }}
-        >
-          {keepPercentage}% kept
+    <WithCardImageBackground cardName={hand.cards[0]}>
+      <div className="flex flex-col items-center justify-center gap-12 py-24 w-full h-full">
+        <Hand cardNames={hand.cards} />
+        <div className="w-1/2 h-10 rounded-2xl shadow-lg shadow-black/20 flex overflow-clip">
+          <div
+            className="bg-white text-black flex items-center p-2"
+            style={{ width: `${keepPercentage}%` }}
+          >
+            {keepPercentage}% kept
+          </div>
+          <div
+            className="bg-black text-white flex items-center justify-end p-2"
+            style={{ width: `${mulliganPercentage}%` }}
+          >
+            {mulliganPercentage}% mulliganed
+          </div>
         </div>
-        <div
-          className="bg-black text-white flex items-center justify-end p-2"
-          style={{ width: `${mulliganPercentage}%` }}
-        >
-          {mulliganPercentage}% mulliganed
+        <div>
+          {didKeep
+            ? majorityKeep
+              ? "You kept, so did most"
+              : "You kept, but most mulliganed"
+            : majorityMulligan
+            ? "You mulliganed, so did most"
+            : "You mulliganed, but most kept"}
         </div>
       </div>
-      <div>
-        {didKeep
-          ? majorityKeep
-            ? "You kept, so did most"
-            : "You kept, but most mulliganed"
-          : majorityMulligan
-          ? "You mulliganed, so did most"
-          : "You mulliganed, but most kept"}
-      </div>
-    </div>
+    </WithCardImageBackground>
   );
 }
