@@ -1,6 +1,7 @@
-import Hand from "@/components/HandComponent";
+import HandComponent from "@/components/HandComponent";
 import WithCardImageBackground from "@/components/WithCardImageBackground";
 import prisma from "@/lib/prisma";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function HandStatsPage({
@@ -35,30 +36,44 @@ export default async function HandStatsPage({
   return (
     <WithCardImageBackground cardName={hand.cards[0]}>
       <div className="flex flex-col items-center justify-center gap-12 py-24 w-full h-full">
-        <Hand cardNames={hand.cards} />
+        <HandComponent cardNames={hand.cards} />
+        <div className="flex flex-col items-center gap2">
+          <p>
+            On the {hand.onThePlay ? "play" : "draw"} with {hand.deckName} in{" "}
+            {hand.formatName}.
+          </p>
+          <p>
+            {didKeep ? "You kept" : "You mulliganed"}
+            {didKeep
+              ? majorityKeep
+                ? ", and so did most users. Congratulations!"
+                : "."
+              : majorityMulligan
+              ? ", and so did most users. Congratulations!"
+              : "."}
+          </p>
+        </div>
         <div className="w-1/2 h-12 rounded-2xl shadow-lg shadow-black/20 flex overflow-clip backdrop-blur">
-          <div
-            className="bg-white/50 text-black flex items-center px-6 font-medium"
-            style={{ width: `${keepPercentage}%` }}
-          >
-            {keepPercentage}% kept
-          </div>
-          <div
-            className="bg-black/40 text-white flex items-center justify-end px-6 font-medium"
-            style={{ width: `${mulliganPercentage}%` }}
-          >
-            {mulliganPercentage}% mulliganed
-          </div>
+          {keepPercentage > 0 && (
+            <div
+              className="bg-white/50 text-black flex items-center px-6 font-medium whitespace-nowrap"
+              style={{ width: `${keepPercentage}%` }}
+            >
+              {keepPercentage}% kept
+            </div>
+          )}
+          {mulliganPercentage > 0 && (
+            <div
+              className="bg-black/40 text-white flex items-center justify-end px-6 font-medium whitespace-nowrap"
+              style={{ width: `${mulliganPercentage}%` }}
+            >
+              {mulliganPercentage}% mulliganed
+            </div>
+          )}
         </div>
-        <div>
-          {didKeep
-            ? majorityKeep
-              ? "You kept, so did most"
-              : "You kept, but most mulliganed"
-            : majorityMulligan
-            ? "You mulliganed, so did most"
-            : "You mulliganed, but most kept"}
-        </div>
+        <Link href="/#hands">
+          <strong>Keep or Mulligan</strong> more hands
+        </Link>
       </div>
     </WithCardImageBackground>
   );

@@ -22,9 +22,9 @@ export default function RootLayout({
       <body className={clsx(inter.className, "bg-gray-900 text-gray-100")}>
         <header>
           <nav className="fixed h-12 w-full flex items-center justify-center shadow-lg z-50 bg-white/10">
-            <Link href="/">
-              <h1 className="flex items-center gap-1 uppercase font-medium">
-                Keep <span className="text-xs">or</span> Mulligan
+            <Link href="/" className="no-underline">
+              <h1 className="flex items-center gap-1 font-bold text-lg">
+                Keep <span className="font-medium">or</span> Mulligan
               </h1>
             </Link>
           </nav>

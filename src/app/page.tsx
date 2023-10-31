@@ -18,20 +18,26 @@ export default async function Home() {
   });
 
   return (
-    <WithCardImageBackground cardName="Searing Blaze">
+    <WithCardImageBackground cardName={handOfTheDay.cards[0]}>
       <div className="p-24 space-y-24">
         <div className="p-12 backdrop-blur rounded-2xl border border-white/20 bg-white/5 flex flex-col gap-12 items-center w-fit mx-auto">
           Make better mulligan decisions based on data.
         </div>
 
         <div className="p-12 backdrop-blur rounded-2xl border border-white/20 bg-white/5 flex flex-col gap-12 items-center w-fit mx-auto">
-          <h2>Hand of the day</h2>
+          <div className="flex flex-col gap-1 items-center">
+            <h2 className="font-bold text-lg">Hand of the day:</h2>
+            <p>
+              {handOfTheDay.formatName} {handOfTheDay.deckName},{" "}
+              {handOfTheDay.onThePlay ? "going first" : "going second"}.
+            </p>
+          </div>
           <HandComponent cardNames={handOfTheDay.cards} display="row" />
           <HandDecision handId={handOfTheDayId} />
         </div>
 
         <div className="p-12 backdrop-blur rounded-2xl border border-white/20 bg-white/5 flex flex-col gap-12 items-center w-fit mx-auto">
-          <h2>All hands</h2>
+          <h2 id="hands">All hands</h2>
           <ul>
             {allHands.map((hand) => (
               <li key={hand.id}>

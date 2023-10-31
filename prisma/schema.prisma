@@ -11,11 +11,15 @@ datasource db {
 }
 
 model Hand {
-  id        String     @id @default(cuid())
-  cards     String[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  decisions Decision[]
+  id         String     @id @default(cuid())
+  cards      String[]
+  formatName String
+  deckName   String
+  onThePlay  Boolean
+  notes      String     @default("")
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  decisions  Decision[]
 }
 
 model Decision {
