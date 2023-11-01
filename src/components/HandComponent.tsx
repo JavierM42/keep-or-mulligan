@@ -21,7 +21,10 @@ export default async function HandComponent({
     cardNames.map((cardName) =>
       fetch(`https://api.scryfall.com/cards/named?fuzzy=${cardName}`)
         .then((res) => res.json())
-        .then((res) => ({ name: cardName, imageUrl: res.image_uris.png }))
+        .then((res) => ({
+          name: cardName,
+          imageUrl: (res.image_uris || res.card_faces[0].image_uris).png,
+        }))
     )
   );
 
