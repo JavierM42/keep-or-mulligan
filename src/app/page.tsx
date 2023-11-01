@@ -30,11 +30,14 @@ export default async function Home() {
           <div className="flex flex-col gap-1 items-center">
             <h2 className="font-bold text-lg">Hand of the day:</h2>
             <p>
-              {handOfTheDay.formatName} {handOfTheDay.deckName},{" "}
+              {handOfTheDay.formatName}, {handOfTheDay.deckName},{" "}
               {handOfTheDay.onThePlay ? "going first" : "going second"}.
             </p>
+            <p>{handOfTheDay.notes}</p>
           </div>
-          <HandComponent cardNames={handOfTheDay.cards} display="row" />
+          <Link href={`/hand/${handOfTheDay.id}`}>
+            <HandComponent cardNames={handOfTheDay.cards} display="row" />
+          </Link>
           <HandDecision handId={handOfTheDayId} />
         </div>
 

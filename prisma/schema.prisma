@@ -18,6 +18,7 @@ model Hand {
   deckName   String
   onThePlay  Boolean
   notes      String     @default("")
+  source     String     @default("")
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   decisions  Decision[]
