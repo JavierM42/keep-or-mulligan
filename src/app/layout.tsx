@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={clsx(inter.className, "bg-gray-900 text-gray-100")}>
         <header>
-          <nav className="fixed h-12 w-full flex items-center justify-center shadow-lg z-50 bg-white/10 gap-px text-lg">
+          <nav className="fixed h-12 w-full flex items-center justify-center shadow-lg z-50 bg-white/10 gap-px text-lg backdrop-blur">
             <Link href="/" className="no-underline">
               <h1 className="flex items-center gap-1 font-bold">
                 Keep or Mulligan
